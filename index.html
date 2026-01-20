@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raushan Kumar - 3D Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">RK</div>
+            <ul class="nav-links">
+                <li><a href="#home" onclick="navigateTo('home')">Home</a></li>
+                <li><a href="#experience" onclick="navigateTo('experience')">Experience</a></li>
+                <li><a href="#projects" onclick="navigateTo('projects')">Projects</a></li>
+                <li><a href="#skills" onclick="navigateTo('skills')">Skills</a></li>
+                <li><a href="#contact" onclick="navigateTo('contact')">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="section hero-section">
+        <div class="content">
+            <h1>Raushan Kumar</h1>
+            <p class="subtitle">Full Stack Developer | DevOps Engineer | .NET Specialist</p>
+            <p class="description">Building scalable applications and optimizing cloud infrastructure</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#projects" class="btn btn-secondary">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Experience -->
+    <section id="experience" class="section">
+        <div class="content">
+            <h2>Work Experience</h2>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="card-icon">💼</div>
+                    <h3>Software Engineer - 1</h3>
+                    <p class="company">Teya Health Pvt Ltd</p>
+                    <p class="duration">May 2025 - Present</p>
+                    <ul>
+                        <li>Spearheading microservices development using ASP.NET Core and Blazor</li>
+                        <li>Redesigned CI/CD pipelines, reducing deployment cycles by 30%</li>
+                        <li>Improved system uptime by 40% through AI-driven deployment strategies</li>
+                        <li>Leading code reviews and mentoring junior developers</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Software Engineer Intern</h3>
+                    <p class="company">Teya Health Pvt Ltd</p>
+                    <p class="duration">Nov 2024 - April 2025</p>
+                    <ul>
+                        <li>Developed scalable applications in C# and .NET framework</li>
+                        <li>Implemented Azure DevOps CI/CD pipelines</li>
+                        <li>Collaborated on AI-driven automation for deployment optimization</li>
+                        <li>Built web applications using ASP.NET Core and Blazor</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Software Developer Intern</h3>
+                    <p class="company">Webnet Technologies</p>
+                    <p class="duration">May 2024 - July 2024</p>
+                    <ul>
+                        <li>Developed and maintained .NET MVC applications</li>
+                        <li>Backend development using ASP.NET and C#</li>
+                        <li>Designed cloud-based solutions with Azure services</li>
+                        <li>Software debugging, testing, and deployment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+        <div class="content">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Rule Engine</h3>
+                        <p class="project-subtitle">Strategy-Driven Market Scanner</p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-badge">.NET 10</span>
+                        <span class="tech-badge">C#</span>
+                        <span class="tech-badge">SQL Server</span>
+                        <span class="tech-badge">EF Core</span>
+                    </div>
+                    <p class="project-description">
+                        Sophisticated strategy-driven market scanner with flexible rule engine evaluating trading strategies against real-time market data. Features configurable rule groups with weighted confluence scoring, RESTful APIs with Swagger documentation, and high-performance T-SQL stored procedures.
+                    </p>
+                    <div class="project-features">
+                        <span>🏗️ Clean Architecture</span>
+                        <span>📊 Real-time Processing</span>
+                        <span>🔔 Multi-channel Alerts</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Multi-Tenant SaaS</h3>
+                        <p class="project-subtitle">Backend Platform</p>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-badge">ASP.NET Core</span>
+                        <span class="tech-badge">C#</span>
+                        <span class="tech-badge">SQL Server</span>
+                        <span class="tech-badge">JWT</span>
+                    </div>
+                    <p class="project-description">
+                        Enterprise-grade SaaS backend with multi-tenant architecture. Implements tenant isolation, role-based authorization, feature flags, and comprehensive audit logging with secure data access patterns.
+                    </p>
+                    <div class="project-features">
+                        <span>🔐 Tenant Isolation</span>
+                        <span>🛡️ RBAC</span>
+                        <span>📝 Audit Logging</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+        <div class="content">
+            <h2>Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Backend Development</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">ASP.NET Core</span>
+                        <span class="skill-item">C#</span>
+                        <span class="skill-item">.NET 10</span>
+                        <span class="skill-item">Entity Framework Core</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Frontend Technologies</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">Blazor</span>
+                        <span class="skill-item">HTML/CSS</span>
+                        <span class="skill-item">JavaScript</span>
+                        <span class="skill-item">Three.js</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Database & Data</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">SQL Server</span>
+                        <span class="skill-item">T-SQL</span>
+                        <span class="skill-item">Azure SQL</span>
+                        <span class="skill-item">Database Design</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>DevOps & Cloud</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">Azure DevOps</span>
+                        <span class="skill-item">CI/CD Pipelines</span>
+                        <span class="skill-item">Azure Services</span>
+                        <span class="skill-item">Microservices</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Other Skills</h3>
+                    <div class="skill-items">
+                        <span class="skill-item">Clean Architecture</span>
+                        <span class="skill-item">Repository Pattern</span>
+                        <span class="skill-item">RESTful APIs</span>
+                        <span class="skill-item">Code Review</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="section">
+        <div class="content">
+            <h2>Education</h2>
+            <div class="education-card">
+                <div class="education-icon">🎓</div>
+                <div class="education-details">
+                    <h3>Bachelor of Technology</h3>
+                    <p class="education-field">Computer Science Engineering</p>
+                    <p class="education-university">Amity University</p>
+                    <p class="education-duration">2021 - 2025</p>
+                </div>
+            </div>
+
+            <div class="languages">
+                <h3>Languages</h3>
+                <div class="language-items">
+                    <span class="language-item">🇮🇳 Hindi</span>
+                    <span class="language-item">🇬🇧 English</span>
+                    <span class="language-item">🇫🇷 French</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="content">
+            <h2>Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <a href="mailto:raushankumargalaxy407@gmail.com">raushankumargalaxy407@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <a href="tel:+917667938687">+91 7667938687</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>Bihar, India - 803301</span>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://linkedin.com/in/raushancodes/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/Raushan-CS" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Raushan Kumar. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

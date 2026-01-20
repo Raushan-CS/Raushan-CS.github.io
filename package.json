@@ -1,0 +1,20 @@
+{
+  "name": "3d-portfolio",
+  "version": "1.0.0",
+  "description": "Interactive 3D portfolio website with Three.js",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "build": "echo 'No build required - pure static HTML/CSS/JS'"
+  },
+  "keywords": [
+    "portfolio",
+    "3d",
+    "threejs",
+    "interactive",
+    "developer"
+  ],
+  "author": "Raushan Kumar",
+  "license": "MIT",
+  "homepage": "https://github.com/Raushan-CS/3d-portfolio"
+}
