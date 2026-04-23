@@ -1,10 +1,13 @@
-// Three.js Scene Setup
-let scene, camera, renderer, particles;
+// Three.js Scene Setup - Matrix Style
+let scene, camera, renderer, particles, matrixRain;
+
+const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
 
 function initThreeJS() {
     // Scene
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0f172a);
+    scene.background = new THREE.Color(0x000000);
+    scene.fog = new THREE.Fog(0x000000, 200, 500);
 
     // Camera
     const width = window.innerWidth;
@@ -19,17 +22,20 @@ function initThreeJS() {
     renderer.shadowMap.enabled = true;
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
+    // Create Matrix rain effect
+    createMatrixRain();
+
     // Create particles
     createParticles();
 
-    // Create floating objects
+    // Create floating Matrix code objects
     createFloatingObjects();
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    // Lighting - Matrix green glow
+    const ambientLight = new THREE.AmbientLight(0x00ff00, 0.3);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x6366f1, 1);
+    const pointLight = new THREE.PointLight(0x00ff00, 1);
     pointLight.position.set(50, 50, 50);
     pointLight.castShadow = true;
     scene.add(pointLight);
@@ -41,8 +47,43 @@ function initThreeJS() {
     animate();
 }
 
+function createMatrixRain() {
+    // Create canvas for Matrix rain effect
+    const canvas = document.createElement('canvas');
+    canvas.width = 200;
+    canvas.height = 200;
+
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, 200, 200);
+
+    // Draw Matrix characters
+    ctx.fillStyle = '#00ff00';
+    ctx.font = 'bold 12px monospace';
+    for (let i = 0; i < 20; i++) {
+        const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+        ctx.fillText(char, Math.random() * 200, Math.random() * 200);
+    }
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.magFilter = THREE.LinearFilter;
+    texture.minFilter = THREE.LinearFilter;
+
+    const geometry = new THREE.PlaneGeometry(100, 100);
+    const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: true,
+        emissive: 0x00ff00,
+        emissiveIntensity: 0.3
+    });
+
+    matrixRain = new THREE.Mesh(geometry, material);
+    matrixRain.position.z = -50;
+    scene.add(matrixRain);
+}
+
 function createParticles() {
-    const particleCount = 100;
+    const particleCount = 150;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
 
@@ -55,11 +96,13 @@ function createParticles() {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
     const material = new THREE.PointsMaterial({
-        color: 0x6366f1,
-        size: 0.5,
+        color: 0x00ff00,
+        size: 1,
         sizeAttenuation: true,
         transparent: true,
-        opacity: 0.6,
+        opacity: 0.8,
+        emissive: 0x00ff00,
+        emissiveIntensity: 0.5
     });
 
     particles = new THREE.Points(geometry, material);
@@ -67,13 +110,15 @@ function createParticles() {
 }
 
 function createFloatingObjects() {
-    // Create rotating cubes
+    // Create rotating Matrix code cubes
     for (let i = 0; i < 5; i++) {
         const geometry = new THREE.BoxGeometry(2, 2, 2);
         const material = new THREE.MeshStandardMaterial({
-            color: new THREE.Color().setHSL(Math.random(), 0.7, 0.5),
-            metalness: 0.7,
-            roughness: 0.2,
+            color: 0x00ff00,
+            metalness: 0.6,
+            roughness: 0.3,
+            emissive: 0x00ff00,
+            emissiveIntensity: 0.3,
         });
         const cube = new THREE.Mesh(geometry, material);
         cube.position.set(
@@ -91,13 +136,15 @@ function createFloatingObjects() {
         scene.add(cube);
     }
 
-    // Create rotating spheres
+    // Create rotating Matrix spheres
     for (let i = 0; i < 3; i++) {
         const geometry = new THREE.IcosahedronGeometry(2, 4);
         const material = new THREE.MeshStandardMaterial({
-            color: new THREE.Color().setHSL(Math.random(), 0.7, 0.5),
-            metalness: 0.8,
-            roughness: 0.1,
+            color: 0x00ff00,
+            metalness: 0.7,
+            roughness: 0.2,
+            emissive: 0x00ff00,
+            emissiveIntensity: 0.4,
         });
         const sphere = new THREE.Mesh(geometry, material);
         sphere.position.set(
@@ -123,6 +170,12 @@ function animate() {
     if (particles) {
         particles.rotation.x += 0.0001;
         particles.rotation.y += 0.0002;
+    }
+
+    // Animate Matrix rain
+    if (matrixRain) {
+        matrixRain.rotation.z += 0.0005;
+        matrixRain.position.y = Math.sin(Date.now() * 0.0005) * 10;
     }
 
     // Rotate floating objects
@@ -223,3 +276,82 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
         particleGeometry.setAttribute('position', new THREE.BufferAttribute(newPositions, 3));
     }
 }
+
+// Add Matrix rain effect overlay
+class MatrixEffect {
+    constructor() {
+        this.canvas = document.createElement('canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.resizeCanvas();
+
+        this.columns = [];
+        this.chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        this.fontSize = 16;
+
+        // Initialize columns
+        for (let i = 0; i < this.columns.length; i++) {
+            this.columns[i] = 1;
+        }
+
+        this.canvas.style.position = 'fixed';
+        this.canvas.style.top = '0';
+        this.canvas.style.left = '0';
+        this.canvas.style.zIndex = '50';
+        this.canvas.style.pointerEvents = 'none';
+        this.canvas.style.opacity = '0.1';
+
+        document.body.appendChild(this.canvas);
+        window.addEventListener('resize', () => this.resizeCanvas());
+    }
+
+    resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.columns = [];
+        const columnCount = Math.floor(this.canvas.width / this.fontSize);
+        for (let i = 0; i < columnCount; i++) {
+            this.columns[i] = 1;
+        }
+    }
+
+    draw() {
+        // Semi-transparent black to create trail effect
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.ctx.fillStyle = '#00ff00';
+        this.ctx.font = `${this.fontSize}px monospace`;
+
+        for (let i = 0; i < this.columns.length; i++) {
+            const char = this.chars.charAt(Math.floor(Math.random() * this.chars.length));
+            const x = i * this.fontSize;
+            const y = this.columns[i] * this.fontSize;
+
+            this.ctx.fillText(char, x, y);
+
+            if (y > this.canvas.height && Math.random() > 0.99) {
+                this.columns[i] = 0;
+            }
+            this.columns[i]++;
+        }
+    }
+}
+
+const matrixEffect = new MatrixEffect();
+
+// Update animation loop to include Matrix effect
+const originalAnimationLoop = window.requestAnimationFrame;
+let frameCount = 0;
+
+function animationLoop() {
+    frameCount++;
+    if (frameCount % 3 === 0) { // Update matrix effect every 3 frames
+        matrixEffect.draw();
+    }
+    originalAnimationLoop(animationLoop);
+}
+
+// Start the matrix effect loop after DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    animationLoop();
+}, { once: true });
