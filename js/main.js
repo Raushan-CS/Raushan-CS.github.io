@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initThreeJS();
 
     // Observe cards for animation
-    const cards = document.querySelectorAll('.experience-card, .project-card, .skill-category, .education-card, .contact-item');
+    const cards = document.querySelectorAll('.experience-card, .project-card, .skill-category, .education-card, .cert-card, .contact-item');
     cards.forEach((card) => {
         observer.observe(card);
     });
