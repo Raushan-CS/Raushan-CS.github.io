@@ -3,117 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raushan Kumar - 3D Portfolio</title>
+
+    <!-- Primary Meta -->
+    <title>Raushan Kumar — Backend &amp; AI Engineer</title>
+    <meta name="description" content="Raushan Kumar — backend engineer building scalable AI/LLM healthcare systems on Azure with clean-architecture microservices.">
+    <meta name="author" content="Raushan Kumar">
+    <meta name="theme-color" content="#08070d">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Raushan Kumar — Backend &amp; AI Engineer">
+    <meta property="og:description" content="Building scalable AI-powered healthcare systems on Azure with clean-architecture microservices.">
+    <meta property="og:url" content="https://raushan-cs.github.io/">
+    <meta property="og:image" content="https://raushan-cs.github.io/profile.jpeg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Raushan Kumar — Backend &amp; AI Engineer">
+    <meta name="twitter:description" content="Building scalable AI-powered healthcare systems on Azure with clean-architecture microservices.">
+    <meta name="twitter:image" content="https://raushan-cs.github.io/profile.jpeg">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308070d'/%3E%3Ctext x='50' y='69' font-family='Georgia,serif' font-size='54' font-weight='700' fill='%23a78bfa' text-anchor='middle'%3ERK%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="canvas-container"></div>
-    
+    <div id="canvas-container" aria-hidden="true"></div>
+    <div class="bg-gradient" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-content">
-            <div class="logo">RK</div>
-            <ul class="nav-links">
-                <li><a href="#home" onclick="navigateTo('home')">Home</a></li>
-                <li><a href="#experience" onclick="navigateTo('experience')">Experience</a></li>
-                <li><a href="#projects" onclick="navigateTo('projects')">Projects</a></li>
-                <li><a href="#skills" onclick="navigateTo('skills')">Skills</a></li>
-                <li><a href="#contact" onclick="navigateTo('contact')">Contact</a></li>
+            <a href="#home" class="logo" aria-label="Home">
+                <span class="logo-mark">RK</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#experience"><span class="nav-idx">01</span>Experience</a></li>
+                <li><a href="#projects"><span class="nav-idx">02</span>Projects</a></li>
+                <li><a href="#skills"><span class="nav-idx">03</span>Skills</a></li>
+                <li><a href="#contact"><span class="nav-idx">04</span>Contact</a></li>
+                <li><a href="Resume.pdf" download="Raushan_Kumar_Resume.pdf" class="nav-cta">Résumé ↓</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="section hero-section">
-        <div class="content">
-            <div class="hero-container">
-                <div class="profile-wrapper">
-                    <img src="profile.jpeg" alt="Raushan Kumar" class="profile-image">
-                    <div class="profile-frame"></div>
-                    <div class="profile-glow"></div>
+    <!-- Hero -->
+    <header id="home" class="hero">
+        <div class="hero-inner">
+            <div class="hero-main">
+                <p class="hero-kicker" data-reveal>Backend &amp; AI Engineer · Healthcare Systems</p>
+                <h1 class="hero-title" data-reveal>
+                    I build the systems<br>
+                    that make <em>AI</em> dependable<br>
+                    in production.
+                </h1>
+                <p class="hero-lede" data-reveal>
+                    I'm <strong>Raushan Kumar</strong> — a backend engineer who ships scalable, clean-architecture
+                    services and the LLM pipelines that run inside real clinical software. Azure OpenAI, RAG,
+                    microservices, and the unglamorous reliability work that keeps them honest.
+                </p>
+                <div class="hero-actions" data-reveal>
+                    <a href="#projects" class="btn btn-primary">See selected work <span aria-hidden="true">→</span></a>
+                    <a href="mailto:raushankumargalaxy407@gmail.com" class="btn btn-link">raushankumargalaxy407@gmail.com</a>
                 </div>
-                <div class="hero-text">
-                    <h1>Raushan Kumar</h1>
-                    <p class="subtitle">Backend Software Engineer | AI/LLM Integration Specialist | Healthcare Systems</p>
-                    <p class="description">Building scalable AI-powered healthcare systems with Azure and modern microservices</p>
-                    <div class="specialization-badges">
-                        <span class="badge">Azure OpenAI</span>
-                        <span class="badge">RAG Pipelines</span>
-                        <span class="badge">Microservices</span>
-                    </div>
-                    <div class="cta-buttons">
-                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                        <a href="#projects" class="btn btn-secondary">View My Work</a>
-                    </div>
-                </div>
+                <dl class="hero-meta" data-reveal>
+                    <div><dt>Currently</dt><dd>Full-Stack Dev @ NeuraNx.ai</dd></div>
+                    <div><dt>Focus</dt><dd>AI systems · .NET · Azure</dd></div>
+                    <div><dt>Based in</dt><dd>Bihar, India</dd></div>
+                </dl>
             </div>
+            <aside class="hero-portrait" data-reveal>
+                <figure class="portrait">
+                    <img src="profile.jpeg" alt="Portrait of Raushan Kumar" loading="eager" width="360" height="440">
+                    <figcaption><span class="portrait-dot"></span>Open to senior roles</figcaption>
+                </figure>
+            </aside>
         </div>
-    </section>
+        <a href="#experience" class="scroll-cue" aria-label="Scroll to content"><span>Scroll</span><i></i></a>
+    </header>
 
-    <!-- Work Experience -->
+    <main>
+    <!-- Experience -->
     <section id="experience" class="section">
         <div class="content">
-            <h2>Work Experience</h2>
-            <div class="experience-grid">
-                <div class="experience-card">
-                    <div class="card-icon">▲▲▲</div>
-                    <h3>Junior Developer - Full Stack</h3>
-                    <p class="company">NeuraNx.ai Private Limited</p>
-                    <p class="duration">Apr 2026 – Present</p>
-                    <ul>
-                        <li>Modernized legacy ASP.NET MVC application by migrating to Angular frontend and .NET 8 backend</li>
-                        <li>Improved performance and scalability of enterprise platform</li>
-                    </ul>
-                </div>
+            <div class="section-head" data-reveal>
+                <span class="section-num">01</span>
+                <h2>Experience</h2>
+                <p class="section-note">Five roles across health-tech, enterprise web, and engines.</p>
+            </div>
 
-                <div class="experience-card">
-                    <div class="card-icon">◈◈◈</div>
-                    <h3>Software Engineer I</h3>
-                    <p class="company">Teya Health Pvt Ltd</p>
-                    <p class="duration">Jan 2025 – March 2026</p>
-                    <ul>
-                        <li>Integrated Azure OpenAI to generate structured SOAP notes in production EHR system with consistent clinical documentation</li>
-                        <li>Built AI workflows combining patient data with RBAC, implementing retry logic and monitoring for system reliability</li>
-                        <li>Designed scalable healthcare microservices using ASP.NET Core with CQRS and clean architecture principles</li>
-                        <li>Engineered secure authentication and policy-based authorization using Azure Entra ID with strict role isolation</li>
-                        <li>Developed medical claims processing workflows for enterprise billing systems (institutional and professional claims)</li>
-                        <li>Optimized CI/CD pipelines using GitHub Actions across environments — reducing deployment cycles by ~30%</li>
-                        <li>Mentored junior developers on debugging and clean coding practices; led daily code reviews</li>
-                    </ul>
-                </div>
+            <div class="timeline">
+                <article class="exp" data-reveal>
+                    <div class="exp-period"><span>2026</span><span class="exp-now">Now</span></div>
+                    <div class="exp-body">
+                        <h3>Junior Developer — Full Stack <span class="exp-co">NeuraNx.ai Private Limited</span></h3>
+                        <ul>
+                            <li>Modernized a legacy ASP.NET MVC application by migrating it to an Angular frontend and a .NET 8 backend.</li>
+                            <li>Improved the performance and scalability of the enterprise platform.</li>
+                        </ul>
+                        <div class="exp-tags"><span>Angular</span><span>.NET 8</span><span>Migration</span></div>
+                    </div>
+                </article>
 
-                <div class="experience-card">
-                    <div class="card-icon">⬚⬚⬚</div>
-                    <h3>Software Developer Intern</h3>
-                    <p class="company">Webnet Technologies</p>
-                    <p class="duration">May 2024 – Jul 2024</p>
-                    <ul>
-                        <li>Built and maintained client-facing web apps using ASP.NET MVC and C#</li>
-                        <li>Gathered requirements on-site, authored SRS documentation, and supported Azure-based cloud deployments</li>
-                    </ul>
-                </div>
+                <article class="exp" data-reveal>
+                    <div class="exp-period"><span>2025</span><span>2026</span></div>
+                    <div class="exp-body">
+                        <h3>Software Engineer I <span class="exp-co">Teya Health Pvt Ltd</span></h3>
+                        <ul>
+                            <li>Integrated Azure OpenAI to generate structured SOAP notes in a production EHR system with consistent clinical documentation.</li>
+                            <li>Built AI workflows combining patient data with RBAC, adding retry logic and monitoring for reliability.</li>
+                            <li>Designed scalable healthcare microservices in ASP.NET Core using CQRS and clean architecture.</li>
+                            <li>Engineered secure authentication and policy-based authorization with Azure Entra ID and strict role isolation.</li>
+                            <li>Developed medical-claims processing workflows for enterprise billing (institutional &amp; professional claims).</li>
+                            <li>Optimized CI/CD with GitHub Actions across environments — cutting deployment cycles by ~30%.</li>
+                            <li>Mentored junior developers on debugging and clean coding; led daily code reviews.</li>
+                        </ul>
+                        <div class="exp-tags"><span>Azure OpenAI</span><span>ASP.NET Core</span><span>CQRS</span><span>Entra ID</span><span>CI/CD</span></div>
+                    </div>
+                </article>
 
-                <div class="experience-card">
-                    <div class="card-icon">⚙⚙⚙</div>
-                    <h3>Java Developer Intern</h3>
-                    <p class="company">CETPA Infotech</p>
-                    <p class="duration">Aug 2024 – Oct 2024</p>
-                    <ul>
-                        <li>Developed REST-based backend modules using Core Java and OOP principles</li>
-                        <li>Improved application performance through debugging and code refactoring</li>
-                    </ul>
-                </div>
+                <article class="exp" data-reveal>
+                    <div class="exp-period"><span>2024</span><span>2024</span></div>
+                    <div class="exp-body">
+                        <h3>Software Developer Intern <span class="exp-co">Webnet Technologies</span></h3>
+                        <ul>
+                            <li>Built and maintained client-facing web apps using ASP.NET MVC and C#.</li>
+                            <li>Gathered on-site requirements, authored SRS documentation, and supported Azure cloud deployments.</li>
+                        </ul>
+                        <div class="exp-tags"><span>ASP.NET MVC</span><span>C#</span><span>Azure</span></div>
+                    </div>
+                </article>
 
-                <div class="experience-card">
-                    <div class="card-icon">◆◆◆</div>
-                    <h3>Game Developer Intern</h3>
-                    <p class="company">Akiyam Solutions Pvt. Ltd.</p>
-                    <p class="duration">Jan 2023 – Jul 2023</p>
-                    <ul>
-                        <li>Designed game levels and mechanics in Unreal Engine 5.1</li>
-                        <li>Optimized assets and collaborated with designers to refine interactive environments</li>
-                    </ul>
-                </div>
+                <article class="exp" data-reveal>
+                    <div class="exp-period"><span>2024</span><span>2024</span></div>
+                    <div class="exp-body">
+                        <h3>Java Developer Intern <span class="exp-co">CETPA Infotech</span></h3>
+                        <ul>
+                            <li>Developed REST-based backend modules using Core Java and OOP principles.</li>
+                            <li>Improved application performance through debugging and code refactoring.</li>
+                        </ul>
+                        <div class="exp-tags"><span>Core Java</span><span>REST</span><span>OOP</span></div>
+                    </div>
+                </article>
+
+                <article class="exp" data-reveal>
+                    <div class="exp-period"><span>2023</span><span>2023</span></div>
+                    <div class="exp-body">
+                        <h3>Game Developer Intern <span class="exp-co">Akiyam Solutions Pvt. Ltd.</span></h3>
+                        <ul>
+                            <li>Designed game levels and mechanics in Unreal Engine 5.1.</li>
+                            <li>Optimized assets and collaborated with designers to refine interactive environments.</li>
+                        </ul>
+                        <div class="exp-tags"><span>Unreal Engine 5</span><span>Level Design</span></div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -121,70 +172,67 @@
     <!-- Projects -->
     <section id="projects" class="section">
         <div class="content">
-            <h2>Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>AI Clinical Document Assistant</h3>
-                        <p class="project-subtitle">RAG-Powered Healthcare Documentation</p>
-                    </div>
-                    <div class="tech-stack">
-                        <span class="tech-badge">Python</span>
-                        <span class="tech-badge">FastAPI</span>
-                        <span class="tech-badge">FAISS</span>
-                        <span class="tech-badge">Azure OpenAI</span>
-                        <span class="tech-badge">Docker</span>
-                    </div>
-                    <p class="project-description">
-                        Built a RAG-based system for structured medical documentation generation using FAISS for embedding storage and semantic retrieval. Containerized and deployed using Docker and Azure Container Services; integrated Azure OpenAI for LLM-driven document generation.
-                    </p>
-                    <div class="project-features">
-                        <span>[◈] RAG Pipeline</span>
-                        <span>[▬] SOAP Notes</span>
-                        <span>[☁] Azure Deployment</span>
-                    </div>
-                </div>
+            <div class="section-head" data-reveal>
+                <span class="section-num">02</span>
+                <h2>Selected Projects</h2>
+                <p class="section-note">A few systems I'm happy to talk through in depth.</p>
+            </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Estate Marketplace</h3>
-                        <p class="project-subtitle">Full-Stack Real Estate Platform</p>
-                    </div>
-                    <div class="tech-stack">
-                        <span class="tech-badge">MERN Stack</span>
-                        <span class="tech-badge">Firebase</span>
-                        <span class="tech-badge">JWT</span>
-                    </div>
-                    <p class="project-description">
-                        Full-stack marketplace with secure JWT authentication, modular REST APIs, and production cloud deployment. Features dynamic property listings with advanced search and filtering capabilities for seamless user experience.
+            <div class="projects">
+                <article class="project" data-reveal data-spotlight>
+                    <header class="project-head">
+                        <span class="project-index">001</span>
+                        <a class="project-link" href="https://github.com/Raushan-CS" target="_blank" rel="noopener" aria-label="View on GitHub">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+                        </a>
+                    </header>
+                    <h3>AI Clinical Document Assistant</h3>
+                    <p class="project-kind">RAG · Healthcare documentation</p>
+                    <p class="project-desc">
+                        A retrieval-augmented system for structured medical documentation. FAISS handles embedding
+                        storage and semantic retrieval; Azure OpenAI drives generation. Containerized with Docker and
+                        deployed on Azure Container Services.
                     </p>
-                    <div class="project-features">
-                        <span>[◆] JWT Auth</span>
-                        <span>[⬚] Dynamic Listings</span>
-                        <span>[☁] Cloud-Ready</span>
-                    </div>
-                </div>
+                    <ul class="project-tech">
+                        <li>Python</li><li>FastAPI</li><li>FAISS</li><li>Azure OpenAI</li><li>Docker</li>
+                    </ul>
+                </article>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Employee Management System</h3>
-                        <p class="project-subtitle">Enterprise Cloud Platform</p>
-                    </div>
-                    <div class="tech-stack">
-                        <span class="tech-badge">ASP.NET MVC</span>
-                        <span class="tech-badge">Azure DevOps</span>
-                        <span class="tech-badge">RBAC</span>
-                        <span class="tech-badge">Azure SQL</span>
-                    </div>
-                    <p class="project-description">
-                        Cloud-hosted enterprise system with automated CI/CD pipelines, role-based access control (RBAC), and secure authentication. Implements comprehensive audit logging and supports enterprise-scale operations with multi-tenant architecture patterns.
+                <article class="project" data-reveal data-spotlight>
+                    <header class="project-head">
+                        <span class="project-index">002</span>
+                        <a class="project-link" href="https://github.com/Raushan-CS" target="_blank" rel="noopener" aria-label="View on GitHub">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+                        </a>
+                    </header>
+                    <h3>Estate Marketplace</h3>
+                    <p class="project-kind">Full-stack · Real estate</p>
+                    <p class="project-desc">
+                        A full-stack marketplace with secure JWT auth, modular REST APIs, and cloud deployment.
+                        Dynamic property listings with advanced search and filtering for a seamless browsing experience.
                     </p>
-                    <div class="project-features">
-                        <span>[◆] RBAC</span>
-                        <span>[▲] Auto-Deploy</span>
-                        <span>[◈] Enterprise Scale</span>
-                    </div>
-                </div>
+                    <ul class="project-tech">
+                        <li>MERN</li><li>Firebase</li><li>JWT</li>
+                    </ul>
+                </article>
+
+                <article class="project" data-reveal data-spotlight>
+                    <header class="project-head">
+                        <span class="project-index">003</span>
+                        <a class="project-link" href="https://github.com/Raushan-CS" target="_blank" rel="noopener" aria-label="View on GitHub">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+                        </a>
+                    </header>
+                    <h3>Employee Management System</h3>
+                    <p class="project-kind">Enterprise · Cloud platform</p>
+                    <p class="project-desc">
+                        A cloud-hosted enterprise system with automated CI/CD, role-based access control, and secure
+                        authentication. Comprehensive audit logging and multi-tenant patterns built for scale.
+                    </p>
+                    <ul class="project-tech">
+                        <li>ASP.NET MVC</li><li>Azure DevOps</li><li>RBAC</li><li>Azure SQL</li>
+                    </ul>
+                </article>
             </div>
         </div>
     </section>
@@ -192,182 +240,118 @@
     <!-- Skills -->
     <section id="skills" class="section">
         <div class="content">
-            <h2>Technical Skills</h2>
-            <div class="skills-container">
-                <div class="skill-category">
+            <div class="section-head" data-reveal>
+                <span class="section-num">03</span>
+                <h2>Skills &amp; Tools</h2>
+                <p class="section-note">What I reach for, grouped by where it lives in the stack.</p>
+            </div>
+
+            <div class="skills">
+                <div class="skill-row" data-reveal>
                     <h3>Languages</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">C#</span>
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">JavaScript</span>
-                        <span class="skill-item">Java</span>
-                        <span class="skill-item">C++</span>
-                    </div>
+                    <ul><li>C#</li><li>Python</li><li>JavaScript</li><li>Java</li><li>C++</li></ul>
                 </div>
-
-                <div class="skill-category">
-                    <h3>Backend Development</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">ASP.NET Core</span>
-                        <span class="skill-item">REST APIs</span>
-                        <span class="skill-item">Microservices</span>
-                        <span class="skill-item">CQRS Pattern</span>
-                        <span class="skill-item">Clean Architecture</span>
-                        <span class="skill-item">SOLID Principles</span>
-                    </div>
+                <div class="skill-row" data-reveal>
+                    <h3>Backend</h3>
+                    <ul><li>ASP.NET Core</li><li>REST APIs</li><li>Microservices</li><li>CQRS</li><li>Clean Architecture</li><li>SOLID</li></ul>
                 </div>
-
-                <div class="skill-category">
-                    <h3>AI & LLM</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">Azure OpenAI</span>
-                        <span class="skill-item">Prompt Engineering</span>
-                        <span class="skill-item">RAG (FAISS)</span>
-                        <span class="skill-item">LLM Integration</span>
-                        <span class="skill-item">AI Workflow Automation</span>
-                        <span class="skill-item">Vector Databases</span>
-                    </div>
+                <div class="skill-row" data-reveal>
+                    <h3>AI &amp; LLM</h3>
+                    <ul><li>Azure OpenAI</li><li>Prompt Engineering</li><li>RAG (FAISS)</li><li>LLM Integration</li><li>Workflow Automation</li><li>Vector DBs</li></ul>
                 </div>
-
-                <div class="skill-category">
-                    <h3>Frontend Technologies</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">React.js</span>
-                        <span class="skill-item">Angular</span>
-                        <span class="skill-item">Blazor</span>
-                        <span class="skill-item">HTML/CSS</span>
-                        <span class="skill-item">JavaScript</span>
-                    </div>
+                <div class="skill-row" data-reveal>
+                    <h3>Frontend</h3>
+                    <ul><li>React</li><li>Angular</li><li>Blazor</li><li>HTML / CSS</li><li>JavaScript</li></ul>
                 </div>
-
-                <div class="skill-category">
-                    <h3>Cloud & Azure Services</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">Azure App Services</span>
-                        <span class="skill-item">Azure Container Apps</span>
-                        <span class="skill-item">Azure Service Bus</span>
-                        <span class="skill-item">Event Grid</span>
-                        <span class="skill-item">Azure Cache for Redis</span>
-                        <span class="skill-item">API Management</span>
-                        <span class="skill-item">Entra ID (RBAC)</span>
-                        <span class="skill-item">Azure SQL</span>
-                    </div>
+                <div class="skill-row" data-reveal>
+                    <h3>Cloud &amp; Azure</h3>
+                    <ul><li>App Services</li><li>Container Apps</li><li>Service Bus</li><li>Event Grid</li><li>Cache for Redis</li><li>API Management</li><li>Entra ID</li><li>Azure SQL</li></ul>
                 </div>
-
-                <div class="skill-category">
-                    <h3>Database & Data</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">SQL Server</span>
-                        <span class="skill-item">T-SQL</span>
-                        <span class="skill-item">Azure SQL</span>
-                        <span class="skill-item">Entity Framework Core</span>
-                        <span class="skill-item">Relational Design</span>
-                    </div>
+                <div class="skill-row" data-reveal>
+                    <h3>Data</h3>
+                    <ul><li>SQL Server</li><li>T-SQL</li><li>Azure SQL</li><li>EF Core</li><li>Relational Design</li></ul>
                 </div>
-
-                <div class="skill-category">
+                <div class="skill-row" data-reveal>
                     <h3>Healthcare Domain</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">SOAP Note Generation</span>
-                        <span class="skill-item">EHR Integration</span>
-                        <span class="skill-item">Medical Claims Processing</span>
-                        <span class="skill-item">RBAC Authentication</span>
-                        <span class="skill-item">Multi-tenant Systems</span>
-                    </div>
+                    <ul><li>SOAP Notes</li><li>EHR Integration</li><li>Claims Processing</li><li>RBAC Auth</li><li>Multi-tenant</li></ul>
                 </div>
-
-                <div class="skill-category">
-                    <h3>DevOps & CI/CD</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">GitHub Actions</span>
-                        <span class="skill-item">Docker</span>
-                        <span class="skill-item">CI/CD Pipelines</span>
-                        <span class="skill-item">Deployment Automation</span>
-                        <span class="skill-item">Git</span>
-                    </div>
+                <div class="skill-row" data-reveal>
+                    <h3>DevOps</h3>
+                    <ul><li>GitHub Actions</li><li>Docker</li><li>CI/CD</li><li>Deploy Automation</li><li>Git</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Certifications & Achievements -->
-    <section id="certifications" class="section">
+    <!-- Recognition + Education combined -->
+    <section id="background" class="section">
+        <div class="content background-grid">
+            <div class="bg-col" data-reveal>
+                <div class="section-head section-head--left">
+                    <span class="section-num">04</span>
+                    <h2>Recognition</h2>
+                </div>
+                <ul class="awards">
+                    <li>
+                        <h3>Career Essentials in Software Development</h3>
+                        <p>Microsoft &amp; LinkedIn — modern engineering &amp; cloud practices.</p>
+                    </li>
+                    <li>
+                        <h3>CodeChef Skill Test — C++</h3>
+                        <p>93% score, merit recognition. Competitive programming &amp; algorithms.</p>
+                    </li>
+                    <li>
+                        <h3>Young Turks National Technical Program</h3>
+                        <p>Recognized for technical excellence &amp; leadership potential.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-col" data-reveal>
+                <div class="section-head section-head--left">
+                    <span class="section-num">05</span>
+                    <h2>Education</h2>
+                </div>
+                <div class="edu">
+                    <h3>B.Tech, Computer Science Engineering</h3>
+                    <p class="edu-school">Amity University</p>
+                    <p class="edu-line"><span>2021 — 2025</span><span class="edu-cgpa">CGPA 8.26 / 10</span></p>
+                    <p class="edu-blurb">
+                        Built the foundations I now apply daily — data structures, systems design, and the discipline
+                        of clean, maintainable code.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
         <div class="content">
-            <h2>Certifications & Achievements</h2>
-            <div class="certifications-grid">
-                <div class="cert-card">
-                    <div class="cert-icon">⟐⟐⟐</div>
-                    <h3>Career Essentials in Software Development</h3>
-                    <p class="cert-issuer">Microsoft & LinkedIn</p>
-                    <p class="cert-description">Comprehensive professional development in modern software engineering practices and cloud technologies.</p>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-icon">★★★</div>
-                    <h3>CodeChef Skill Test (C++)</h3>
-                    <p class="cert-issuer">93% Score — Merit Recognition</p>
-                    <p class="cert-description">Demonstrated advanced proficiency in competitive programming and algorithmic problem-solving.</p>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-icon">⬪⬪⬪</div>
-                    <h3>Young Turks National Technical Program</h3>
-                    <p class="cert-issuer">Recognition Program</p>
-                    <p class="cert-description">Recognized for technical excellence and leadership potential in the youth developer community.</p>
-                </div>
+            <div class="section-head" data-reveal>
+                <span class="section-num">06</span>
+                <h2 class="contact-title">Let's talk.</h2>
+            </div>
+            <p class="contact-lede" data-reveal>
+                I'm open to senior backend and AI engineering roles, and to interesting problems in between.
+                The fastest way to reach me is email — I usually reply within a day.
+            </p>
+            <a href="mailto:raushankumargalaxy407@gmail.com" class="contact-email" data-reveal>raushankumargalaxy407@gmail.com</a>
+            <div class="contact-foot" data-reveal>
+                <a href="https://linkedin.com/in/raushancodes/" target="_blank" rel="noopener">LinkedIn ↗</a>
+                <a href="https://github.com/Raushan-CS" target="_blank" rel="noopener">GitHub ↗</a>
+                <a href="tel:+917667938687">+91 7667938687</a>
+                <a href="Resume.pdf" download="Raushan_Kumar_Resume.pdf">Résumé ↓</a>
             </div>
         </div>
     </section>
+    </main>
 
-    <!-- Education -->
-    <section id="education" class="section">
-        <div class="content">
-            <h2>Education</h2>
-            <div class="education-card">
-                <div class="education-icon">▲▼▲</div>
-                <div class="education-details">
-                    <h3>Bachelor of Technology</h3>
-                    <p class="education-field">Computer Science Engineering</p>
-                    <p class="education-university">Amity University</p>
-                    <p class="education-duration">2021 - 2025</p>
-                    <p class="education-cgpa">CGPA: 8.26 / 10.0</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-        <div class="content">
-            <h2>Get In Touch</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span class="contact-icon">◊◊◊</span>
-                    <a href="mailto:raushankumargalaxy407@gmail.com">raushankumargalaxy407@gmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">▮▮▮</span>
-                    <a href="tel:+917667938687">+91 7667938687</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">◆◆◆</span>
-                    <span>Bihar, India - 803301</span>
-                </div>
-            </div>
-
-            <div class="social-links">
-                <a href="https://linkedin.com/in/raushancodes/" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://github.com/Raushan-CS" target="_blank" rel="noopener">GitHub</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2026 Raushan Kumar. All rights reserved.</p>
+        <span>© 2026 Raushan Kumar</span>
+        <span class="footer-built">Built from scratch — HTML, CSS, Three.js</span>
+        <a href="#home" class="footer-top">Back to top ↑</a>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/main.js"></script>
 </body>

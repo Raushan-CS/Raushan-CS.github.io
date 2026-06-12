@@ -4,8 +4,12 @@
   "description": "Interactive 3D portfolio website with Three.js",
   "main": "index.html",
   "scripts": {
-    "start": "python -m http.server 8000",
+    "dev": "live-server --port=8000 --no-browser",
+    "start": "live-server --port=8000",
     "build": "echo 'No build required - pure static HTML/CSS/JS'"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
   },
   "keywords": [
     "portfolio",

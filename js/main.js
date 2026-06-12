@@ -1,357 +1,252 @@
-// Three.js Scene Setup - Matrix Style
-let scene, camera, renderer, particles, matrixRain;
+/* ===========================================================
+   Raushan Kumar — Portfolio
+   3D: undulating wireframe terrain + fresnel-lit crystal
+   Plus: nav, scroll-reveal, card spotlight, active-section.
+   =========================================================== */
 
-const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const coarse = matchMedia('(pointer: coarse)').matches;
+const lowPower = coarse || navigator.hardwareConcurrency <= 4;
 
-function initThreeJS() {
-    // Scene
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
-    scene.fog = new THREE.Fog(0x000000, 200, 500);
+/* -----------------------------------------------------------
+   Scene
+   ----------------------------------------------------------- */
+(function scene() {
+    const host = document.getElementById('canvas-container');
+    if (!host || typeof THREE === 'undefined') return;
 
-    // Camera
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    camera.position.z = 50;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 200);
+    camera.position.set(0, 2.2, 16);
 
-    // Renderer
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.shadowMap.enabled = true;
-    document.getElementById('canvas-container').appendChild(renderer.domElement);
+    const renderer = new THREE.WebGLRenderer({
+        antialias: !lowPower,
+        alpha: true,
+        powerPreference: 'high-performance',
+    });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, lowPower ? 1.5 : 2));
+    host.appendChild(renderer.domElement);
 
-    // Create Matrix rain effect
-    createMatrixRain();
+    const group = new THREE.Group();
+    scene.add(group);
 
-    // Create particles
-    createParticles();
+    /* ---- Undulating wireframe terrain ---------------------- */
+    const SEG = lowPower ? 40 : 64;
+    const terrainGeo = new THREE.PlaneGeometry(60, 60, SEG, SEG);
+    terrainGeo.rotateX(-Math.PI / 2);
+    const base = terrainGeo.attributes.position.array.slice();
 
-    // Create floating Matrix code objects
-    createFloatingObjects();
-
-    // Lighting - Matrix green glow
-    const ambientLight = new THREE.AmbientLight(0x00ff00, 0.3);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0x00ff00, 1);
-    pointLight.position.set(50, 50, 50);
-    pointLight.castShadow = true;
-    scene.add(pointLight);
-
-    // Handle resize
-    window.addEventListener('resize', onWindowResize);
-
-    // Start animation loop
-    animate();
-}
-
-function createMatrixRain() {
-    // Create canvas for Matrix rain effect
-    const canvas = document.createElement('canvas');
-    canvas.width = 200;
-    canvas.height = 200;
-
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, 200, 200);
-
-    // Draw Matrix characters
-    ctx.fillStyle = '#00ff00';
-    ctx.font = 'bold 12px monospace';
-    for (let i = 0; i < 20; i++) {
-        const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-        ctx.fillText(char, Math.random() * 200, Math.random() * 200);
-    }
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.magFilter = THREE.LinearFilter;
-    texture.minFilter = THREE.LinearFilter;
-
-    const geometry = new THREE.PlaneGeometry(100, 100);
-    const material = new THREE.MeshBasicMaterial({
-        map: texture,
+    const terrainMat = new THREE.MeshBasicMaterial({
+        color: 0x6d4fc4,
+        wireframe: true,
         transparent: true,
-        emissive: 0x00ff00,
-        emissiveIntensity: 0.3
+        opacity: 0.32,
     });
+    const terrain = new THREE.Mesh(terrainGeo, terrainMat);
+    terrain.position.y = -5;
+    group.add(terrain);
 
-    matrixRain = new THREE.Mesh(geometry, material);
-    matrixRain.position.z = -50;
-    scene.add(matrixRain);
-}
-
-function createParticles() {
-    const particleCount = 150;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-
-    for (let i = 0; i < particleCount * 3; i += 3) {
-        positions[i] = (Math.random() - 0.5) * 200;      // x
-        positions[i + 1] = (Math.random() - 0.5) * 200;  // y
-        positions[i + 2] = (Math.random() - 0.5) * 200;  // z
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const material = new THREE.PointsMaterial({
-        color: 0x00ff00,
-        size: 1,
-        sizeAttenuation: true,
+    /* ---- Central crystal with a fresnel rim shader --------- */
+    const crystalGeo = new THREE.IcosahedronGeometry(2.6, 1);
+    const crystalMat = new THREE.ShaderMaterial({
         transparent: true,
-        opacity: 0.8,
-        emissive: 0x00ff00,
-        emissiveIntensity: 0.5
-    });
-
-    particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-}
-
-function createFloatingObjects() {
-    // Create rotating Matrix code cubes
-    for (let i = 0; i < 5; i++) {
-        const geometry = new THREE.BoxGeometry(2, 2, 2);
-        const material = new THREE.MeshStandardMaterial({
-            color: 0x00ff00,
-            metalness: 0.6,
-            roughness: 0.3,
-            emissive: 0x00ff00,
-            emissiveIntensity: 0.3,
-        });
-        const cube = new THREE.Mesh(geometry, material);
-        cube.position.set(
-            (Math.random() - 0.5) * 100,
-            (Math.random() - 0.5) * 100,
-            (Math.random() - 0.5) * 100
-        );
-        cube.castShadow = true;
-        cube.receiveShadow = true;
-        cube.userData.rotationSpeed = {
-            x: (Math.random() - 0.5) * 0.01,
-            y: (Math.random() - 0.5) * 0.01,
-            z: (Math.random() - 0.5) * 0.01,
-        };
-        scene.add(cube);
-    }
-
-    // Create rotating Matrix spheres
-    for (let i = 0; i < 3; i++) {
-        const geometry = new THREE.IcosahedronGeometry(2, 4);
-        const material = new THREE.MeshStandardMaterial({
-            color: 0x00ff00,
-            metalness: 0.7,
-            roughness: 0.2,
-            emissive: 0x00ff00,
-            emissiveIntensity: 0.4,
-        });
-        const sphere = new THREE.Mesh(geometry, material);
-        sphere.position.set(
-            (Math.random() - 0.5) * 80,
-            (Math.random() - 0.5) * 80,
-            (Math.random() - 0.5) * 80
-        );
-        sphere.castShadow = true;
-        sphere.receiveShadow = true;
-        sphere.userData.rotationSpeed = {
-            x: (Math.random() - 0.5) * 0.008,
-            y: (Math.random() - 0.5) * 0.008,
-            z: (Math.random() - 0.5) * 0.008,
-        };
-        scene.add(sphere);
-    }
-}
-
-function animate() {
-    requestAnimationFrame(animate);
-
-    // Rotate particles
-    if (particles) {
-        particles.rotation.x += 0.0001;
-        particles.rotation.y += 0.0002;
-    }
-
-    // Animate Matrix rain
-    if (matrixRain) {
-        matrixRain.rotation.z += 0.0005;
-        matrixRain.position.y = Math.sin(Date.now() * 0.0005) * 10;
-    }
-
-    // Rotate floating objects
-    scene.children.forEach((child) => {
-        if (child.userData.rotationSpeed) {
-            child.rotation.x += child.userData.rotationSpeed.x;
-            child.rotation.y += child.userData.rotationSpeed.y;
-            child.rotation.z += child.userData.rotationSpeed.z;
-        }
-    });
-
-    renderer.render(scene, camera);
-}
-
-function onWindowResize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-}
-
-// Navigation and smooth scrolling
-function navigateTo(section) {
-    const element = document.getElementById(section);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px',
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Add scroll event listener for parallax and animations
-document.addEventListener('DOMContentLoaded', () => {
-    initThreeJS();
-
-    // Observe cards for animation
-    const cards = document.querySelectorAll('.experience-card, .project-card, .skill-category, .education-card, .cert-card, .contact-item');
-    cards.forEach((card) => {
-        observer.observe(card);
-    });
-
-    // Add smooth scroll behavior
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = anchor.getAttribute('href');
-            navigateTo(target.substring(1));
-        });
-    });
-
-    // Add scroll event for navbar background
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(15, 23, 42, 0.98)';
-        } else {
-            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
-        }
-    });
-});
-
-// Mouse tracking for interactive effects
-document.addEventListener('mousemove', (e) => {
-    const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-    const mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-
-    // Optional: Add subtle camera rotation based on mouse position
-    // camera.rotation.x = mouseY * 0.0005;
-    // camera.rotation.y = mouseX * 0.0005;
-});
-
-// Performance optimization for mobile
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    // Reduce particle count on mobile
-    const particleGeometry = particles?.geometry;
-    if (particleGeometry) {
-        const positions = particleGeometry.getAttribute('position').array;
-        // Keep only half the particles on mobile
-        const newPositions = new Float32Array(positions.length / 2);
-        for (let i = 0; i < newPositions.length; i++) {
-            newPositions[i] = positions[i];
-        }
-        particleGeometry.setAttribute('position', new THREE.BufferAttribute(newPositions, 3));
-    }
-}
-
-// Add Matrix rain effect overlay
-class MatrixEffect {
-    constructor() {
-        this.canvas = document.createElement('canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.resizeCanvas();
-
-        this.columns = [];
-        this.chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-        this.fontSize = 16;
-
-        // Initialize columns
-        for (let i = 0; i < this.columns.length; i++) {
-            this.columns[i] = 1;
-        }
-
-        this.canvas.style.position = 'fixed';
-        this.canvas.style.top = '0';
-        this.canvas.style.left = '0';
-        this.canvas.style.zIndex = '50';
-        this.canvas.style.pointerEvents = 'none';
-        this.canvas.style.opacity = '0.1';
-
-        document.body.appendChild(this.canvas);
-        window.addEventListener('resize', () => this.resizeCanvas());
-    }
-
-    resizeCanvas() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.columns = [];
-        const columnCount = Math.floor(this.canvas.width / this.fontSize);
-        for (let i = 0; i < columnCount; i++) {
-            this.columns[i] = 1;
-        }
-    }
-
-    draw() {
-        // Semi-transparent black to create trail effect
-        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.ctx.fillStyle = '#00ff00';
-        this.ctx.font = `${this.fontSize}px monospace`;
-
-        for (let i = 0; i < this.columns.length; i++) {
-            const char = this.chars.charAt(Math.floor(Math.random() * this.chars.length));
-            const x = i * this.fontSize;
-            const y = this.columns[i] * this.fontSize;
-
-            this.ctx.fillText(char, x, y);
-
-            if (y > this.canvas.height && Math.random() > 0.99) {
-                this.columns[i] = 0;
+        uniforms: {
+            uColorA: { value: new THREE.Color(0x8b5cf6) },
+            uColorB: { value: new THREE.Color(0x4c1d95) },
+            uTime: { value: 0 },
+        },
+        vertexShader: `
+            varying vec3 vNormal;
+            varying vec3 vView;
+            void main() {
+                vNormal = normalize(normalMatrix * normal);
+                vec4 mv = modelViewMatrix * vec4(position, 1.0);
+                vView = normalize(-mv.xyz);
+                gl_Position = projectionMatrix * mv;
             }
-            this.columns[i]++;
+        `,
+        fragmentShader: `
+            varying vec3 vNormal;
+            varying vec3 vView;
+            uniform vec3 uColorA;
+            uniform vec3 uColorB;
+            void main() {
+                float fres = pow(1.0 - max(dot(vNormal, vView), 0.0), 2.2);
+                vec3 col = mix(uColorB, uColorA, fres);
+                gl_FragColor = vec4(col, fres * 0.9 + 0.06);
+            }
+        `,
+    });
+    const crystal = new THREE.Mesh(crystalGeo, crystalMat);
+    crystal.position.y = 1.5;
+    group.add(crystal);
+
+    // Wireframe overlay on the crystal for a faceted edge read
+    const crystalEdges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(crystalGeo, 1),
+        new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.4 })
+    );
+    crystal.add(crystalEdges);
+
+    /* ---- Sparse drifting motes ----------------------------- */
+    const MOTES = lowPower ? 60 : 120;
+    const mp = new Float32Array(MOTES * 3);
+    for (let i = 0; i < MOTES; i++) {
+        mp[i * 3]     = (Math.random() - 0.5) * 50;
+        mp[i * 3 + 1] = Math.random() * 24 - 4;
+        mp[i * 3 + 2] = (Math.random() - 0.5) * 40;
+    }
+    const moteGeo = new THREE.BufferGeometry();
+    moteGeo.setAttribute('position', new THREE.BufferAttribute(mp, 3));
+    const moteSprite = (() => {
+        const c = document.createElement('canvas');
+        c.width = c.height = 32;
+        const x = c.getContext('2d');
+        const g = x.createRadialGradient(16, 16, 0, 16, 16, 16);
+        g.addColorStop(0, 'rgba(196,181,253,0.9)');
+        g.addColorStop(1, 'rgba(139,92,246,0)');
+        x.fillStyle = g; x.fillRect(0, 0, 32, 32);
+        return new THREE.CanvasTexture(c);
+    })();
+    const motes = new THREE.Points(moteGeo, new THREE.PointsMaterial({
+        size: 0.5, map: moteSprite, transparent: true, opacity: 0.55,
+        depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true,
+    }));
+    group.add(motes);
+
+    /* ---- Interaction --------------------------------------- */
+    let mx = 0, my = 0, cx = 0, cy = 0, scroll = 0;
+    addEventListener('pointermove', (e) => {
+        mx = (e.clientX / innerWidth - 0.5);
+        my = (e.clientY / innerHeight - 0.5);
+    }, { passive: true });
+    addEventListener('scroll', () => { scroll = scrollY; }, { passive: true });
+    addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+    });
+
+    /* ---- Loop ---------------------------------------------- */
+    const pos = terrainGeo.attributes.position;
+    const wave = (t) => {
+        for (let i = 0; i < pos.count; i++) {
+            const x = base[i * 3];
+            const z = base[i * 3 + 2];
+            pos.array[i * 3 + 1] =
+                Math.sin(x * 0.3 + t) * 0.55 +
+                Math.cos(z * 0.4 + t * 0.8) * 0.55 +
+                Math.sin((x + z) * 0.18 + t * 0.5) * 0.4;
         }
+        pos.needsUpdate = true;
+    };
+
+    let raf, t = 0;
+    function frame() {
+        t += 0.012;
+        if (!reduceMotion) wave(t);
+
+        crystal.rotation.y = t * 0.5;
+        crystal.rotation.x = Math.sin(t * 0.3) * 0.25;
+        crystal.position.y = 1.5 + Math.sin(t * 0.6) * 0.3;
+        crystalMat.uniforms.uTime.value = t;
+
+        motes.rotation.y = t * 0.04;
+
+        // eased parallax; scroll pulls the camera back and down
+        cx += (mx - cx) * 0.045;
+        cy += (my - cy) * 0.045;
+        const s = Math.min(scroll / innerHeight, 3);
+        camera.position.x = cx * 4;
+        camera.position.y = 2.2 - cy * 2 - s * 1.2;
+        camera.lookAt(0, 1 - s * 0.5, 0);
+
+        renderer.render(scene, camera);
+        raf = requestAnimationFrame(frame);
     }
-}
 
-const matrixEffect = new MatrixEffect();
+    frame();
+    if (reduceMotion) cancelAnimationFrame(raf); // single static frame
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else if (!reduceMotion) frame();
+    });
+})();
 
-// Update animation loop to include Matrix effect
-const originalAnimationLoop = window.requestAnimationFrame;
-let frameCount = 0;
+/* -----------------------------------------------------------
+   Navbar + mobile menu + active-section highlight
+   ----------------------------------------------------------- */
+(function nav() {
+    const navbar = document.getElementById('navbar');
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    const anchors = [...document.querySelectorAll('.nav-links a[href^="#"]')];
 
-function animationLoop() {
-    frameCount++;
-    if (frameCount % 3 === 0) { // Update matrix effect every 3 frames
-        matrixEffect.draw();
+    const onScroll = () => navbar.classList.toggle('scrolled', scrollY > 40);
+    onScroll();
+    addEventListener('scroll', onScroll, { passive: true });
+
+    if (toggle && links) {
+        toggle.addEventListener('click', () => {
+            const open = links.classList.toggle('open');
+            toggle.classList.toggle('active', open);
+            toggle.setAttribute('aria-expanded', String(open));
+        });
+        links.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+            links.classList.remove('open');
+            toggle.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        }));
     }
-    originalAnimationLoop(animationLoop);
-}
 
-// Start the matrix effect loop after DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    animationLoop();
-}, { once: true });
+    // Scroll-spy
+    const sections = anchors
+        .map((a) => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+    if ('IntersectionObserver' in window && sections.length) {
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                if (e.isIntersecting) {
+                    anchors.forEach((a) =>
+                        a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+                }
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach((s) => spy.observe(s));
+    }
+})();
+
+/* -----------------------------------------------------------
+   Scroll reveal (with stagger via CSS var)
+   ----------------------------------------------------------- */
+(function reveal() {
+    const items = document.querySelectorAll('[data-reveal]');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+        items.forEach((el) => el.classList.add('revealed'));
+        return;
+    }
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('revealed');
+            io.unobserve(e.target);
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    items.forEach((el) => io.observe(el));
+})();
+
+/* -----------------------------------------------------------
+   Cursor spotlight on cards (skipped on touch / reduced motion)
+   ----------------------------------------------------------- */
+(function spotlight() {
+    if (coarse || reduceMotion) return;
+    const cards = document.querySelectorAll('[data-spotlight]');
+    cards.forEach((card) => {
+        card.addEventListener('pointermove', (e) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+            card.style.setProperty('--my', `${e.clientY - r.top}px`);
+        });
+    });
+})();
