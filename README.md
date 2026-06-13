@@ -1,192 +1,100 @@
-# 3D Portfolio Website
+# Raushan Kumar — Portfolio
 
-A stunning, interactive 3D portfolio website built with **Three.js** and modern web technologies. Showcasing professional experience, projects, skills, and education with animated 3D backgrounds and smooth scrolling navigation.
+A fast, interactive personal portfolio for **Raushan Kumar**, a Backend & AI Engineer building scalable AI/LLM healthcare systems on Azure. Built from scratch with vanilla HTML, CSS, and a **Three.js** animated background — no frameworks, no build step.
 
-## 🚀 Features
+🔗 **Live:** [raushan-cs.github.io](https://raushan-cs.github.io/)
 
-- **3D Interactive Background** - Animated particles and rotating geometric objects using Three.js
-- **Responsive Design** - Fully responsive layout that works on desktop, tablet, and mobile devices
-- **Modern UI/UX** - Beautiful gradient designs, smooth animations, and glassmorphism effects
-- **Smooth Navigation** - Seamless section scrolling with fixed navigation bar
-- **Performance Optimized** - Optimized for fast loading and smooth 60fps animations
-- **Mobile Friendly** - Reduced particle count and optimized rendering for mobile devices
+## ✨ Features
+
+- **3D Animated Background** — particles and geometry rendered with Three.js (WebGL), reduced automatically on mobile for performance
+- **Responsive Design** — single-page layout that adapts across desktop, tablet, and mobile
+- **Modern UI** — dark theme with gradients, grain texture, glassmorphism, and scroll-reveal animations
+- **Spotlight Project Cards** — interactive hover effects on featured work
+- **Accessible Navigation** — fixed navbar with mobile toggle and smooth section scrolling
+- **SEO & Social Ready** — Open Graph and Twitter Card meta tags, custom SVG favicon
+- **Zero Dependencies at Runtime** — vanilla JS plus Three.js from CDN
 
 ## 🛠️ Tech Stack
 
-- **HTML5** - Semantic markup
-- **CSS3** - Advanced styling with gradients, animations, and flexbox/grid
-- **JavaScript (Vanilla)** - No framework dependencies for lightweight performance
-- **Three.js** - 3D graphics library for WebGL rendering
+- **HTML5** — semantic, accessible markup
+- **CSS3** — custom properties, grid/flexbox, animations
+- **JavaScript (Vanilla)** — lightweight, no framework
+- **Three.js (r128)** — 3D background via CDN
 
 ## 📁 Project Structure
 
 ```
-3d-portfolio/
-├── index.html          # Main HTML file
+Raushan-CS.github.io/
+├── index.html          # Single-page portfolio
 ├── css/
 │   └── styles.css      # All styling
 ├── js/
-│   └── main.js         # Three.js setup and interactions
-├── assets/             # Images and other assets (optional)
-├── README.md           # This file
-└── .gitignore          # Git ignore file
+│   └── main.js         # Three.js background + interactions
+├── profile.jpeg        # Portrait image
+├── Resume.pdf          # Downloadable résumé
+├── package.json        # Live-server dev tooling
+├── DEPLOYMENT.md       # Deployment guide
+├── QUICKSTART.md       # Quick start guide
+└── README.md           # This file
 ```
 
 ## 🎯 Sections
 
-1. **Home** - Hero section with introduction and CTA buttons
-2. **Experience** - Work experience at Teya Health and Webnet Technologies
-3. **Projects** - Featured projects with tech stack and descriptions
-4. **Skills** - Technical skills organized by categories
-5. **Education** - Educational background and languages
-6. **Contact** - Contact information and social media links
+1. **Home** — hero introduction with current role and quick stats
+2. **Experience** — five roles across health-tech, enterprise web, and game engines (NeuraNx.ai, Teya Health, Webnet Technologies, CETPA Infotech, Akiyam Solutions)
+3. **Projects** — selected work: AI Clinical Document Assistant (RAG), Estate Marketplace (MERN), Employee Management System
+4. **Skills & Tools** — grouped by layer: languages, backend, AI & LLM, frontend, cloud & Azure, data, healthcare domain, DevOps
+5. **Recognition & Education** — certifications, awards, and B.Tech in Computer Science (Amity University)
+6. **Contact** — email, LinkedIn, GitHub, phone, and résumé download
 
-## 💻 Installation & Setup
+## 💻 Local Development
 
-### Local Development
+```bash
+# Clone the repository
+git clone https://github.com/Raushan-CS/Raushan-CS.github.io.git
+cd Raushan-CS.github.io
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Raushan-CS/3d-portfolio.git
-   cd 3d-portfolio
-   ```
+Then either open `index.html` directly in your browser, or run a local server:
 
-2. **Open in browser:**
-   - Simply open `index.html` in your web browser
-   - Or use a local server:
-     ```bash
-     python -m http.server 8000
-     # Then visit http://localhost:8000
-     ```
+```bash
+# Using the bundled live-server (auto-reload)
+npm install
+npm start
 
-### Customization
+# Or with Python
+python -m http.server 8000   # then visit http://localhost:8000
+```
 
-To customize the portfolio with your own content:
+## 🚀 Deployment
 
-1. **Update Personal Info** in `index.html`:
-   - Name, title, and description
-   - Contact information
-   - Social media links
+This repository is named `Raushan-CS.github.io`, so GitHub Pages serves it automatically from the `main` branch at [raushan-cs.github.io](https://raushan-cs.github.io/).
 
-2. **Modify Experience, Projects, and Skills** in the respective HTML sections
+```bash
+git add .
+git commit -m "Update portfolio"
+git push origin main
+```
 
-3. **Customize Colors** in `css/styles.css`:
-   - Edit CSS variables in `:root` selector
-   - Primary color: `--primary-color: #6366f1`
-   - Secondary color: `--secondary-color: #8b5cf6`
-   - Accent color: `--accent-color: #ec4899`
-
-4. **Adjust 3D Elements** in `js/main.js`:
-   - Particle count
-   - Floating object quantity and size
-   - Rotation speeds and lighting
-
-## 🚀 GitHub Pages Deployment
-
-### Deploy to GitHub Pages:
-
-1. **Create a new repository** named `username.github.io` (replace `username` with your GitHub username)
-
-2. **Push your files:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial portfolio commit"
-   git branch -M main
-   git remote add origin https://github.com/username/username.github.io.git
-   git push -u origin main
-   ```
-
-3. **Your portfolio will be live** at `https://username.github.io`
-
-### Alternative: Deploy from a Different Repository
-
-If you want to deploy from a regular repository:
-
-1. Create a repository: `portfolio`
-2. In repository settings, enable GitHub Pages
-3. Set the source branch to `main` and folder to `/(root)` or `/3d-portfolio`
-4. Your site will be available at `https://username.github.io/portfolio`
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the full guide.
 
 ## 📱 Browser Support
 
-- Chrome/Edge 90+
+- Chrome / Edge 90+
 - Firefox 88+
 - Safari 14+
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
-## ⚡ Performance Tips
+## 📧 Contact
 
-- The Three.js scene automatically optimizes for mobile devices
-- Particle count is reduced on mobile for better performance
-- All animations use CSS transforms for GPU acceleration
-- Images and assets should be optimized before adding
-
-## 🎨 Customization Guide
-
-### Changing Colors
-
-Edit the CSS variables in `css/styles.css`:
-
-```css
-:root {
-    --primary-color: #6366f1;    /* Main accent color */
-    --secondary-color: #8b5cf6;  /* Gradient color */
-    --accent-color: #ec4899;     /* Hover color */
-    --dark-bg: #0f172a;          /* Dark background */
-    --light-bg: #1e293b;         /* Lighter background */
-}
-```
-
-### Adjusting 3D Background
-
-In `js/main.js`, modify the `createParticles()` and `createFloatingObjects()` functions:
-
-```javascript
-const particleCount = 100;  // Increase for more particles
-const pointLight = new THREE.PointLight(0x6366f1, 1);  // Change light color
-```
-
-## 📝 Content Tips
-
-- Keep descriptions concise and impactful
-- Use emojis in section headers for visual interest
-- Add relevant tech badges to projects
-- Include measurable achievements in work experience
-
-## 🔧 Troubleshooting
-
-**3D Background not showing?**
-- Check browser console for errors
-- Ensure Three.js CDN is accessible
-- Try a different browser
-
-**Layout looks broken on mobile?**
-- Check viewport meta tag
-- Clear browser cache
-- Test on actual mobile device
-
-**Animations are slow?**
-- Reduce particle count in `js/main.js`
-- Disable some floating objects
-- Use Chrome DevTools Performance tab
+- **Email:** raushankumargalaxy407@gmail.com
+- **LinkedIn:** [linkedin.com/in/raushancodes](https://linkedin.com/in/raushancodes/)
+- **GitHub:** [github.com/Raushan-CS](https://github.com/Raushan-CS)
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
-
-## 🙏 Credits
-
-- Three.js library
-- Inspired by modern portfolio designs
-- Built with ❤️ by Raushan Kumar
-
-## 📧 Contact
-
-- Email: raushankumargalaxy407@gmail.com
-- LinkedIn: linkedin.com/in/raushancodes/
-- GitHub: github.com/Raushan-CS
+Open source under the MIT License.
 
 ---
 
-**Last Updated**: January 2025
+Built with ❤️ by Raushan Kumar · **Last Updated:** June 2026
